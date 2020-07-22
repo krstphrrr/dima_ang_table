@@ -9,6 +9,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import {MatTableModule} from '@angular/material/table'
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

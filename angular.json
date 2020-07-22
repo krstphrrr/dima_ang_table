@@ -126,5 +126,10 @@
   "defaultProject": "angdimatable",
   "cli": {
     "analytics": "782e5d47-1fce-4dfa-a721-287f27de35eb"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
   }
 }
