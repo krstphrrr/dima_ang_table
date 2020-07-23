@@ -18,6 +18,7 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
   @ViewChild(MatPaginator, { static: true }) paginator:MatPaginator;
   @Input('tableColumns')tableCols:string[]=[]
   @Input()tableData:{}[]=[];
+  headerText: string;
   limit:number = 10;
   skip:number = 0;
   totalLength:number = 0;

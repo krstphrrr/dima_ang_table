@@ -1,11 +1,10 @@
 table {
   width: 100%;
-
 }
 
-th, td {
+/* th, td {
   overflow: hidden;
   width: 250px;
   height: 30px;
   white-space: nowrap;
-}
+} */
