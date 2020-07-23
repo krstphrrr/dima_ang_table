@@ -23,7 +23,7 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
   skip:number = 0;
   totalLength:number = 0;
   pageIndex : number = 0;
-  pageLimit:number[] = [5, 10] ;
+  pageLimit:number[] = [5, 10, 20, 100] ;
 
   tableDataSrc:any
 
