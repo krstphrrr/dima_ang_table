@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestApiServiceService {
-  private api = 'http://localhost:5005'
-  tables = 'http://localhost:5005/tables'
+  private api = environment.API_URL
+  tables = environment.TABLE_URL
+
   private observable:Observable<any>;
   data$ : BehaviorSubject<any> = new BehaviorSubject({})
   private extractData(res:Response){
@@ -40,18 +42,12 @@ export class RestApiServiceService {
         this.data$.next(complete)
       })
       return this.data$
-    // return this.httpClient.get(newString, this.httpOptions).pipe(
-    //   map(this.extractData)
-    // )
   }
 
   getTables(){
-    // let tmpArray:any
+
     return this.httpClient.get(this.tables, this.httpOptions).pipe(
       map(this.extractData)
     )
-    // console.log(this.data)
-    // return tmpArray
-
   }
 }
