@@ -18,16 +18,21 @@
             
           </mat-expansion-panel-header>
           <!-- content of expansion panel -->
+          <!-- tracking mouse and changing 'button' styles dynamically: https://stackoverflow.com/a/45942614 -->
           <mat-grid-list cols="3" rowHeight="2:1">
             <mat-grid-tile
              *ngFor="let tableCol of tableCols"
-             (click)="AddNewRow(tableCol)">
+             (click)="AddNewRow(tableCol)"
+             (mouseover)="isTarget=tableCol"
+             [ngClass]="{'target':isTarget===tableCol}">
              {{tableCol}}
               </mat-grid-tile>
           </mat-grid-list> 
         </mat-expansion-panel>
+        <!-- toggling expansion of panel 'remotely' (from another element): https://stackoverflow.com/a/48745463 -->
+        <!-- adding expansion panel rows programmatically: https://stackoverflow.com/q/56532915 -->
+        <!-- enabling clickable elements in expansion panel by disabling momentarily expansion function: https://stackoverflow.com/a/54648235 -->
         
-
         <mat-expansion-panel 
           *ngFor="let filter of filterArray;" 
           [expanded]="filter.open" 
@@ -41,17 +46,18 @@
               {{filter.name}}
             </mat-panel-title>
             <mat-panel-description>
+              <!-- removing row on element click: https://stackoverflow.com/a/15287938 -->
               <mat-icon (click)="removeRow(filter.name)">clear</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>
           <input matInput (keyup)="onSearchInput($event)" placeholder="filter by '{{filter.name}}' ">
 
-
-          <mat-form-field class="filter" floatLabel="never">
+          <!-- custom filter by field (not dynamic though it's a start): https://stackoverflow.com/a/54683423 -->
+          <!-- <mat-form-field class="filter" floatLabel="never" MatFormFieldControl>
             <mat-label>Search</mat-label>
             
             <input matInput [formControl]="colFilter">
-          </mat-form-field>
+          </mat-form-field> -->
         </mat-expansion-panel>
       </mat-accordion>
       </mat-card>

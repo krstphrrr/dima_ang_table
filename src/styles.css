@@ -10,7 +10,9 @@ th.mat-header-cell, td.mat-cell {
  white-space: nowrap;
 }
 
-
+/* these two rules help with justifying the 'x' icon on the expansion panel to the right:
+ https://stackoverflow.com/a/49374729
+ */
 .right-align > .mat-content {
   justify-content: space-between;
 }

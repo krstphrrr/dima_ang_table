@@ -26,6 +26,7 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
   @ViewChild(MatPaginator, { static: true }) paginator:MatPaginator;
   @Input('tableColumns')tableCols:string[]=[]
   @Input()tableData:{}[]=[];
+  
   headerText: string;
   limit:number = 10;
   skip:number = 0;
@@ -33,15 +34,16 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
   pageIndex : number = 0;
   pageLimit:number[] = [5, 10, 20, 100] ;
 
-  // FOR FILTER PANEL
+  // FOR FILTER PANEL ////////
   filterArray:Filters[]=[]
   panelOpenState: boolean = false;
   toggleOutput: string;
   clickButton:boolean;
   filterValues:{}={}
   colFilter = new FormControl('')
+  isTarget:any
+  ////////////////////////////
 
-  @Input() justClicked:string;
   tableDataSrc:any
 
   output:any[]=[];
@@ -55,12 +57,12 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
     private api: RestApiServiceService
     ) {
     //subscribe to dropdown component  changes 
-    this.justClicked = ''
     this.subscription = this.str.retrieveContent().subscribe(message => {
       this.refresh()
 
     });
 }
+
   refresh(){
     this.api.data$.subscribe(newData=>{
       this.tableDataSrc = new MatTableDataSource(newData['data'])
@@ -81,7 +83,7 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
     this.panelOpenState = !this.panelOpenState
   }
   AddNewRow(string) {
-    
+
     this.filterArray.push({name: string, open: false});
   }
 
@@ -94,30 +96,27 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
     this.filterArray = something
   }
 
-  arrayRemove(arr,val){
-
-
-  }
-
   ///////////////////////////////////////////
 
   onSearchInput(ev){
     console.log(this.tableDataSrc)
+    // this.colFilter = ev.target.value
     const searchTarget = ev.target.value;
     this.tableDataSrc.filter = searchTarget.trim().toLowerCase()
   }
   ngOnInit(){
     this.refresh()
-    this.colFilter.valueChanges
-     .subscribe(
-       field => {
-         this.filterValues[`${this.justClicked}`] = field
-       }
-     )
-    // this.printdata()
+    // this.colFilter.valueChanges
+    //  .subscribe(
+    //    field => {
+    //      console.log(field)
+    //     //  this.filterValues[`${this.justClicked}`] = field
+    //    }
+    //  )
+    // // this.printdata()
   }
   changePage(event){
-    // console.log(this.tableDataSrc)
+
     if(this.totalLength > this.tableDataSrc.data.length){
        if(this.pageIndex < event.pageIndex){
         // next page
@@ -132,9 +131,7 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
     console.log(this.tableData['item'])
   }
   ngOnChanges(){    
-    // // this.printdata()
-    // this.ngOnInit()
-    // console.log(this.sort)
+
   }
 
 
