@@ -12,6 +12,11 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import {MatTableModule} from '@angular/material/table'
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,12 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatCardModule,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,3 +9,12 @@ th.mat-header-cell, td.mat-cell {
  height: 30px;
  white-space: nowrap;
 }
+
+
+.right-align > .mat-content {
+  justify-content: space-between;
+}
+
+.mat-content > mat-panel-title, .mat-content > mat-panel-description {
+flex: 0 0 auto;
+}
