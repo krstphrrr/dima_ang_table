@@ -50,7 +50,21 @@
               <mat-icon (click)="removeRow(filter.name)">clear</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <input matInput (keyup)="onSearchInput($event)" placeholder="filter by '{{filter.name}}' ">
+          <!-- if input should be searchable through typing -->
+          <input matInput 
+          *ngIf="!(filter.name==='PrimaryKey' || filter.name==='SiteKey')"
+          (keyup)="applyFilter($event.target.value)" 
+          (focus) = "setupFilter(filter.name)"
+            
+            placeholder="filter by '{{filter.name}}' ">
+          <!-- if input should be searchable through selection from dropdown (only 'Sitekey is implemented') -->
+          <mat-select 
+            *ngIf="(filter.name==='PrimaryKey' || filter.name=== 'SiteKey')" 
+            (selectionChange)="sendSelection($event)">
+            <mat-option *ngFor="let field of dropdownKeys" [value]="field.name">
+              {{field.name}}
+            </mat-option>
+          </mat-select>
 
           <!-- custom filter by field (not dynamic though it's a start): https://stackoverflow.com/a/54683423 -->
           <!-- <mat-form-field class="filter" floatLabel="never" MatFormFieldControl>

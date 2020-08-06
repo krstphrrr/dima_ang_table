@@ -13,6 +13,9 @@ interface Filters {
   name:string;
   open:boolean;
 }
+interface Options{
+  name:string;
+}
 
 
 @Component({
@@ -42,6 +45,10 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
   filterValues:{}={}
   colFilter = new FormControl('')
   isTarget:any
+  tempSet:Filters[]
+  tempSet2:Options[]
+
+  dropdownKeys:{}[]
   ////////////////////////////
 
   tableDataSrc:any
@@ -64,6 +71,8 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
 }
 
   refresh(){
+    this.tempSet = [] // emptying added filters on reload
+    this.filterArray = []
     this.api.data$.subscribe(newData=>{
       this.tableDataSrc = new MatTableDataSource(newData['data'])
       this.tableDataSrc.sort = this.sort
@@ -83,17 +92,85 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
     this.panelOpenState = !this.panelOpenState
   }
   AddNewRow(string) {
-
-    this.filterArray.push({name: string, open: false});
+    // testing dropdown functionality
+    switch(string){
+      case 'SiteKey':
+        this.dropdownKeys = [] 
+        this.tempSet2 = []
+        this.dropdownKeysetup(string)
+        break;
+      case 'PrimaryKey':
+        this.dropdownKeys = [] 
+        this.tempSet2 = []
+        this.dropdownKeysetup(string)
+        break;
+    }
+    // adding only objects with unique 'name'(columns) to filterArray
+    // so the filters appear only once:
+    // https://codeburst.io/javascript-array-distinct-5edc93501dc4
+    this.tempSet.push({name: string, open: false})
+    let newSet = Array.from(new Set(this.tempSet.map(s=>s.name)))
+      .map(name =>{
+        return{
+          name:name,
+          open: this.tempSet.find(s=>s.name===name).open
+        }
+      })
+      this.filterArray = newSet
+    
   }
 
   removeRow(string){
     this.clickButton = true;
     console.log(this.filterArray, string, "before")
-    let something = this.filterArray.filter(function(obj){
+    let arrayWithout_item = this.filterArray.filter(function(obj){
       return obj.name != string;
     })
-    this.filterArray = something
+    let trimTemp = this.tempSet.filter(function(obj){
+      return obj.name != string;
+    })
+    this.filterArray = arrayWithout_item
+    this.tempSet = trimTemp
+    this.resetFilter()
+    
+  }
+  setupFilter(column:string){
+    // console.log(column)
+    this.tableDataSrc.filterPredicate = (d:MatTableDataSource<any>, filter:string)=>{
+      const textToSearch = d[column].toLowerCase() || '';
+      return textToSearch.indexOf(filter) !== -1;
+    }
+    console.log(this.tableDataSrc.filterPredicate)
+  }
+  applyFilter(filterValue:string){
+    this.tableDataSrc.filter = filterValue.trim().toLowerCase()
+  }
+  resetFilter(){
+    console.log(this.tableDataSrc.filter)
+    this.tableDataSrc.filter = ''
+  }
+
+  dropdownKeysetup(string){ 
+    
+    this.tableData.forEach((item)=>{
+
+      // console.log(item[string])
+      this.tempSet2.push({name: item[string]})
+      let newSet = Array.from(new Set(this.tempSet2.map(s=>s.name)))
+      .map(name =>{
+        return{
+          name:name
+        }
+      })
+      this.dropdownKeys= newSet
+      // if(!this.siteKey.includes(item['SiteKey'])){
+      //   this.siteKey.push(item['SiteKey'])
+      // }
+    }) 
+  }
+  sendSelection(string){
+    const searchTarget = string.value
+    this.tableDataSrc.filter = searchTarget.trim().toLowerCase()
   }
 
   ///////////////////////////////////////////

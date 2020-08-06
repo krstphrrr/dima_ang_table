@@ -9,7 +9,8 @@ table {
 }
 mat-grid-tile {
   background: lightblue;
-  color:darkblue
+  color:darkblue;
+  user-select: none;
 }
 
 /* used to change color on mouse over on panel grid */
