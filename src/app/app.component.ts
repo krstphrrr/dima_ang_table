@@ -12,16 +12,16 @@ import { Subscription } from 'rxjs'
 
 export class AppComponent implements OnDestroy, OnInit, OnChanges{
   public tableparse = {
-    'tblGapDetail':'gapdetails',
-    'tblGapHeader' : 'gapheader',
-    'tblHorizontalFlux':'horizontalflux',
-    'tblLines':'lines',
-    'tblLPIDetail':'lpidetails',
-    'tblLPIHeader':'lpiheader',
-    'tblPlots':'plots',
-    'tblSites':'sites',
-    'tblSpecies':'species',
-    'tblSpeciesGeneric':'speciesgeneric'
+    'tblGapDetail':'tblGapDetail',
+    'tblGapHeader' : 'tblGapHeader',
+    'tblHorizontalFlux':'tblHorizontalFlux',
+    'tblLines':'tblLines',
+    'tblLPIDetail':'tblLPIDetail',
+    'tblLPIHeader':'tblLPIHeader',
+    'tblPlots':'tblPlots',
+    'tblSites':'tblSites',
+    'tblSpecies':'tblSpecies',
+    'tblSpeciesGeneric':'tblSpeciesGeneric'
   }
   tableCols = []
   tableData:{}[] = []

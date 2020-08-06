@@ -65,6 +65,7 @@ export class TableComponent implements OnDestroy, OnInit, OnChanges, AfterViewIn
     ) {
     //subscribe to dropdown component  changes 
     this.subscription = this.str.retrieveContent().subscribe(message => {
+      
       this.refresh()
 
     });
