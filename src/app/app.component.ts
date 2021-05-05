@@ -24,28 +24,28 @@ export class AppComponent implements OnDestroy, OnInit, OnChanges{
     'tblSpeciesGeneric':'tblSpeciesGeneric'
   }
   tableCols = []
-  tableData:{}[] = []
+  tableData:any= []
   subscription:Subscription;
   title = 'angdimatable';
   constructor(
     private str: StringServiceService,
     private api: RestApiServiceService
     ) {
-      this.subscription = this.str.retrieveContent().subscribe(dropDownChoice => {
-        this.tableData = []
-        this.tableCols = []
-        if (dropDownChoice) {
+      // this.subscription = this.str.retrieveContent().subscribe(dropDownChoice => {
+      //   this.tableData = []
+      //   this.tableCols = []
+      //   if (dropDownChoice) {
           
           
-          this.api.getData(this.tableparse[dropDownChoice.data]).subscribe(data=>{
-            this.tableCols = data['cols']
-            this.tableData = data['data']
-            })
-        } else {
-          this.tableCols = []
-          this.tableData = []
-        }
-      })
+      //     this.api.getData(this.tableparse[dropDownChoice.data]).subscribe(data=>{
+      //       this.tableCols = data['cols']
+      //       this.tableData = data['data']
+      //       })
+      //   } else {
+      //     this.tableCols = []
+      //     this.tableData = []
+      //   }
+      // })
     }
     ngOnChanges(){
       this.printdata()
